@@ -1,0 +1,13 @@
+<%- include('partials/header'); -%>
+<h1>Home</h1>
+<p><%= home %></p>
+
+<%# Iterates through the newPost array and taps into the 'title' %>
+<% newPost.forEach(function (post) { %>
+
+  <h1><%= post.title %></h1>
+  <p><%= post.content %></p>
+
+<% }); %>
+
+<%- include('partials/footer'); -%>
