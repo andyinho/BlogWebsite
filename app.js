@@ -22,9 +22,6 @@ app.use(express.static("public"));
 //empty array which title and content get pushed to and saved
 let posts = [];
 
-let title = [];
-let content = [];
-
 app.get('/', function(req, res) {
   res.render('home', {
     home: homeContent,
