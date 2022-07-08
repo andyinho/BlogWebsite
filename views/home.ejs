@@ -1,17 +1,76 @@
-<%- include('partials/header'); -%>
-<h1>Home</h1>
-<p><%= home %></p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-<%# Iterates through the newPost array and taps into the 'title' %>
-<% newPost.forEach(function (post) { %>
+<head>
+  <meta charset="utf-8">
+  <title>Andres Baeza - From Behind the Desk</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-  <h1><%= post.title %></h1>
+<body>
 
-  <p>
-  <%= post.content.substring(0, 100) + '..' %>
-  <a href="/post/<%= post.title%>">Read More</a>
-  </p>
+  <div class="background-color">
 
-<% }); %>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <p class="navbar-brand">Andres Baeza</p>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- 6 -->
+          <li id="home"><a href="/">HOME</a></li>
+          <li id="about"><a href="/about">ABOUT</a></li>
+          <li id="contact"><a href="/contact">CONTACT</a></li>
+        </ul>
+      </div>
+    </nav>
 
-<%- include('partials/footer'); -%>
+
+    <div class="container-main">
+
+      <h1 class="welcome">Welcome</h1>
+      <p class="introduction"><%= home %></p>
+
+    </div>
+
+  </div>
+
+  <div class="container-main-2">
+
+    <div class="box-border">
+      <div class="featured">
+        Featured
+      </div>
+      <div class="card-post">
+
+        <%# Iterates through the newPost array (which is part of posts DB) and taps into the 'title' %>
+        <% newPost.forEach(function (post) { %>
+
+        <h3><%= post.title %></h3>
+
+        <p>
+          <%# limts to only 100 characters %>
+          <%= post.content.substring(0, 100) + '..' %>
+
+        </p>
+
+        <a href="/post/<%= post.title%>" class="btn btn-primary">Read More</a>
+        <hr>
+        <% }); %>
+      </div>
+    </div>
+
+  </div>
+
+
+  <footer>
+    <div>
+      <p>Copyright 2022 © Andres Baeza</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
