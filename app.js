@@ -27,8 +27,14 @@ mongoose.connect("mongodb://localhost:27017/blogDB", {
 
 //creates schema
 const postSchema = new mongoose.Schema({
-  title: String,
-  content: String
+  title: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  }
 });
 
 //compiles schema into a model
@@ -36,14 +42,15 @@ const Post = mongoose.model('Post', postSchema);
 
 app.get('/', function(req, res) {
 
-//finds all the posts in the post collection and renders them in the home page
-  Post.find({}, function(err, posts) {
+  // finds all the posts in the post collection and renders them in the home page based on most recent
+  Post.find().sort({
+    $natural: -1
+  }).exec(function(err, posts) {
     res.render('home', {
       home: homeContent,
       newPost: posts
     }); // res.render: assemble dynamic EJS file / res.sendFile: send complete static HTML file
-
-  });
+  })
 
 });
 
@@ -64,7 +71,7 @@ app.post('/compose', function(req, res) {
   });
 
   //saves to database, redirects to homepage if no console.error();
-  post.save(function (err) {
+  post.save(function(err) {
     if (!err) {
       res.redirect('/');
     }
@@ -73,17 +80,63 @@ app.post('/compose', function(req, res) {
 
 //getting a dynamic website URL's
 app.get('/post/:title', function(req, res) {
-
   const requestedPostTitle = req.params.title;
 
   //looks through DB and finds matching title, renders page w title and content of matching title
-  Post.findOne({title: requestedPostTitle}, function (err, post) {
+  Post.findOne({
+    title: requestedPostTitle
+  }, function(err, post) {
     res.render('post', {
       title: post.title,
       content: post.content
     });
   });
 });
+
+app.get('/edit', function(req, res) {
+  res.render('edit');
+})
+
+app.get('/edit/:postId', function(req, res) {
+  const requestedPostId = req.params.postId;
+
+  Post.findOneAndUpdate({
+    _id: requestedPostId
+  }, {
+    $set: {
+      title: req.body.editTitle,
+      content: req.body.editContent
+    }
+  }, {
+    new: true
+  }, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('edit', {
+        title: post.title,
+        content: post.content
+      });
+    }
+  })
+});
+
+app.post('/edit', function(req, res) {
+
+  //stores info for both title and content from form, creates new data
+  const post = new Post({
+    title: req.body.editTitle,
+    content: req.body.editContent
+  });
+
+  //saves to database, redirects to homepage if no console.error();
+  post.save(function(err) {
+    if (!err) {
+      res.redirect('/');
+    }
+  });
+})
+
 
 app.get('/about', function(req, res) {
   res.render('about', {
@@ -96,8 +149,6 @@ app.get('/contact', function(req, res) {
     contact: contactContent
   });
 });
-
-
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

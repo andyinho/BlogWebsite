@@ -1,8 +1,4 @@
-.container-fluid {
-  padding-top: 70px;
-  padding-bottom: 70px;
-}
-
+/* NAVIGATION START */
 .navbar {
   padding-top: 15px;
   background-color: transparent;
@@ -14,23 +10,37 @@
   letter-spacing: 5px;
 }
 
-.navbar-nav li:hover {
-  background-color: #00FFAB;
-  color: #000000 !important;
-  border-radius: 6px;
-  transform: scale(1.1);
-  transition: all .25s ease-in-out;
+/* controls navbar hover when in mobile view */
+@media (max-width: 767px) {
+  .navbar-nav li:hover {
+    background-color: #00FFAB;
+    color: #000000;
+    border-radius: 6px;
+  }
+}
+
+/* contorls navbar when in wide screen view */
+@media (min-width: 767px) {
+  .navbar-nav li:hover {
+    background-color: #00FFAB;
+    color: #000000;
+    border-radius: 6px;
+    transform: scale(1.1);
+    transition: all .25s ease-in-out;
+  }
 }
 
 .navbar-default .navbar-brand {
   color: #000000;
 }
 
-.navbar-default .navbar-brand:hover {
-  color: #000001;
+/* changes nav text color */
+.navbar-default .navbar-nav>li>a {
+  color: #000000;
 }
+/* NAVIGATION END */
 
-/* Main Start*/
+/* INTRO START */
 .brand {
   float: left;
   height: 50px;
@@ -41,7 +51,7 @@
 }
 
 .background-color {
-  background-color: #D3DEDC;
+  background-color: #F1F9F9;
   padding-bottom: 10rem;
 }
 
@@ -69,34 +79,48 @@
   text-align: center;
   margin: 10rem;
 }
+/* INTRO END */
 
-.featured {
-  padding: 10px 0;
-  background-color: #D3DEDC;
+/* CARDS START */
+.card-img-top {
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
 }
 
-.box-border {
-  overflow: hidden;
-  border-style: solid;
-  border-radius: 10px;
-  border-color: #777777;
-  background-color: #fff;
-}
-
-.card-post {
-  border-top: solid;
-  border-color: #777777;
-}
-
-/* changes nav text color */
-.navbar-default .navbar-nav>li>a {
+.post-date {
   color: #000000;
+  margin-left: 25px;
+}
+
+.col-sm-6 {
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #f1f9f9;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.card-title {
+  padding-left: 25px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+.card-text {
+  padding: 0 25px;
+  color: #73777B;
+  text-align: left;
 }
 
 .btn-primary {
   background-color: #00FFAB;
   color: #000000;
   border-color: #00FFAB;
+  margin-bottom: 2rem;
 }
 
 .btn-primary:hover {
@@ -107,7 +131,11 @@
   transition: all .25s ease-in-out;
 }
 
-/* Main end */
+/* left aligns anchor button inside card */
+.text-left a {
+  margin-left: 25px;
+}
+/* CARDS END */
 
 /* Alt pages start */
 .page-intro {
